@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--[if IE 8]>
+<html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"> <!--<![endif]-->
+	<head>
+		<title>Garam Han</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="shortcut icon" href="images/favicon.ico" />
+	</head>
+	<body class="is-preload">
+
+			<section id="header">
+				<header>
+					<span class="image avatar"><img src="images/Profile1.jpg" alt="" /></span>
+					<h1 id="logo">Garam Han</a></h1>
+					<p>A conscientious, energetic individual who is passionate about learning new IT services.</p>
+				</header>
+				<nav id="nav">
+					<ul>
+						<li><a href="#one" class="active">About</a></li>
+						<li><a href="#two">Things I Can Do</a></li>
+						<li><a href="#three">A Few Accomplishments</a></li>
+					</ul>
+				</nav>
+				<footer>
+					<ul class="icons">
+						<li><a href="https://www.linkedin.com/in/garam" class="icon brands fa-linkedin" target="_blank" rel="noopener noreferrer"><span class="label">Linkedin</span></a></li>
+						<li><a href="https://github.com/garamh" class="icon brands fa-github" target="_blank" rel="noopener noreferrer"><span class="label">Github</span></a></li>
+						<li><a href="mailto:garamhan.it@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+				</footer>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+					<div id="main">
+						<!-- One -->
+							<section id="one">
+								<div class="container">
+									<header class="major">
+										<h2>Geek @ Heart</h2>
+									</header>
+									
+									<div id="cli">
+										<div>Welcome!</div>
+									</div>
+									<script>
+										const cli = document.getElementById('cli');
+									
+										// Simulate typing
+										function typeText(element, text, callback) {
+											let index = 0;
+											const interval = setInterval(() => {
+												if (index < text.length) {
+													element.textContent += text[index++];
+												} else {
+													clearInterval(interval);
+													if (callback) callback();
+												}
+											}, 100); // Typing speed
+										}
+
+										// Simulate backspace
+										function backspaceText(element, callback) {
+											let text = element.textContent;
+											let index = text.length;
+											const interval = setInterval(() => {
+												if (index > 0) {
+													element.textContent = text.substring(0, --index);
+												} else {
+													clearInterval(interval);
+													if (callback) callback();
+												}
+											}, 150); // Backspace speed
+										}
+
+										// Blinking cursor
+										function addInputLine(textToType = '', callback) {
+											const inputLine = document.createElement('div');
+											inputLine.className = 'input-line';
+									
+											const label = document.createElement('label');
+											label.textContent = 'about@garamhan:~$ ';  // Linux-style prompt
+									
+											const span = document.createElement('span');
+											span.textContent = ''; // Start empty for typing effect
+									
+											const cursor = document.createElement('span');
+											cursor.className = 'blinking-cursor';
+									
+											inputLine.appendChild(label);
+											inputLine.appendChild(span);
+											inputLine.appendChild(cursor);
+											cli.appendChild(inputLine);
+
+											typeText(span, textToType, callback);
+										}
+									
+										// Clear CLI
+										function clearDynamicCLI(callback) {
+											const inputLines = document.querySelectorAll('.input-line');
+											inputLines.forEach(line => line.remove());
+											if (callback) callback();
+										}
+									
+										// Initialize CLI
+										function initializeCLI() {
+											addInputLine('echo "hello world"', () => {
+												setTimeout(() => {
+													backspaceText(document.querySelector('.input-line span'), () => {
+														clearDynamicCLI(() => {
+															addInputLine('whoami', () => {
+																setTimeout(() => {
+																	const outputLine = document.createElement('div');
+																	outputLine.className = 'input-line';
+																	const span = document.createElement('span');
+																	span.textContent = 'Garam Han';
+																	outputLine.appendChild(span);
+																	cli.appendChild(outputLine);
+																}, 1000); // Wait 1 second before outputting
+															});
+														});
+													});
+												}, 2000); // Wait 2 seconds before clearing
+											});
+										}
+									
+										// Start the CLI on page load
+										window.onload = initializeCLI;
+									</script>
+								</div>
+							</section>
+
+						<!-- Two -->
+							<section id="two">
+								<div class="container">
+									<h3>Things I Can Do</h3>
+									<p>A Cloud Engineer skilled in automating infrastructure, optimizing deployments, and developing QA strategies for reliable, scalable solutions.</p>
+									<ul class="feature-icons">
+										<li class="icon solid fa-code">Automating All The Things</li>
+										<li class="icon solid fa-file-code">Testing End-to-end Strategies</li>
+										<li class="icon solid fa-laptop-code">Architecting Cloud-native Solutions</li>
+										<li class="icon solid fa-coffee">Drinking Too Much Coffee</li>
+										<li class="icon solid fa-bug">Debugging And Resolving Issues</li>
+										<li class="icon solid fa-terminal">Monitoring And Alerting Scripts</li>
+									</ul>
+								</div>
+							</section>
+
+						<!-- Three -->
+							<section id="three">
+								<div class="container">
+									<h3>A Few Accomplishments</h3>
+									<p>And Many More To Come</p>
+									<div class="features">
+										<article>
+											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/pca.png" alt="" /></a>
+											<div class="inner">
+												<h4>Professional Cloud Architect</h4>
+												<p>Reference: 247cc673248d4f1297ee899012bc43db</br>
+													January 2024 - January 2026</p>
+											</div>
+										</article>
+										<article>
+											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/ace.png" alt="" /></a>
+											<div class="inner">
+												<h4>Associate Cloud Engineer</h4>
+												<p>Reference: a93db2515a594172acf348bd825f9800 </br>
+													January 2023 - January 2026</p>
+											</div>
+										</article>
+										<article>
+											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/co2.png" alt="" /></a>
+											<div class="inner">
+												<h4>AWS Solutions Architect – Associate</h4>
+												<p>Reference: Q1TE8S3JD2FQ1XW8</br> 
+													July 2021 - July 2024</p>
+											</div>
+										</article>
+									</div>
+								</div>
+							</section>
+
+					</div>
+
+					<section id="footer">
+						<div class="container">
+							<small class="copyright">Copyright &copy; <script>document.write(new Date().getFullYear())</script> | Garam Han
+							</small>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
