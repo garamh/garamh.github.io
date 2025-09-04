@@ -1,211 +1,352 @@
 <!DOCTYPE html>
-<!--[if IE 8]>
-<html lang="en" class="ie8"> <![endif]-->
-<!--[if IE 9]>
-<html lang="en" class="ie9"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="en"> <!--<![endif]-->
-	<head>
-		<title>Garam Han</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<link rel="shortcut icon" href="images/favicon.ico" />
-	</head>
-	<body class="is-preload">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garam Han</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a class="logo">Garam Han</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#accomplishments">Accomplishments</a></li>
+                <li><a href="https://github.com/garamh" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+                <li><a href="mailto:garamhan.it@gmail.com">Email</a></li>
+            </ul>
+        </nav>
+    </header>
 
-			<section id="header">
-				<header>
-					<span class="image avatar"><img src="images/Profile1.jpg" alt="" /></span>
-					<h1 id="logo">Garam Han</a></h1>
-					<p>A conscientious, energetic individual who is passionate about learning new IT services.</p>
-				</header>
-				<footer>
-					<ul class="icons">
-						<li><a href="https://www.linkedin.com/in/garam" class="icon brands fa-linkedin" target="_blank" rel="noopener noreferrer"><span class="label">Linkedin</span></a></li>
-						<li><a href="https://github.com/garamh" class="icon brands fa-github" target="_blank" rel="noopener noreferrer"><span class="label">Github</span></a></li>
-						<li><a href="mailto:garamhan.it@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-					</ul>
-				</footer>
-			</section>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-header">
+                    <img src="images/profile.jpg" alt="Garam Han" class="hero-photo">
+                    <h1>Geek@Heart</h1>
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<!-- Wrapper -->
-			<div id="wrapper">
-					<div id="main">
-						<!-- One -->
-							<section id="one">
-								<div class="container">
-									<header class="major">
-										<h2>Geek @ Heart</h2>
-									</header>
-									
-									<div id="cli">
-										<div>Welcome!</div>
-									</div>
-									<script>
-										const cli = document.getElementById('cli');
-									
-										// Simulate typing
-										function typeText(element, text, callback) {
-											let index = 0;
-											const interval = setInterval(() => {
-												if (index < text.length) {
-													element.textContent += text[index++];
-												} else {
-													clearInterval(interval);
-													if (callback) callback();
-												}
-											}, 100); // Typing speed
-										}
+    <main>
+        <section id="about" class="section">
+            <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content" style="display: flex; justify-content: center; align-items: center;">
+                <div class="about-text fade-in-up" style="width: 100%; display: flex; justify-content: center;">
+                <div id="cli" class="cli-console"></div>
+                <script>
+                    const cli = document.getElementById('cli');
+                    const MAX_LINES = 6; // Maximum number of visible lines
+                    let currentCursor = null;
 
-										// Simulate backspace
-										function backspaceText(element, callback) {
-											let text = element.textContent;
-											let index = text.length;
-											const interval = setInterval(() => {
-												if (index > 0) {
-													element.textContent = text.substring(0, --index);
-												} else {
-													clearInterval(interval);
-													if (callback) callback();
-												}
-											}, 150); // Backspace speed
-										}
+                    function typeText(element, text, cursor, callback) {
+                        let index = 0;
+                        const interval = setInterval(() => {
+                            if (index < text.length) {
+                                element.textContent += text[index++];
+                                if (cursor) {
+                                    cursor.style.transform = `translateX(${element.offsetWidth}px)`;
+                                }
+                                checkAndRemoveOldLines();
+                            } else {
+                                clearInterval(interval);
+                                if (callback) callback();
+                            }
+                        }, 150); // Slowed down typing speed
+                    }
 
-										// Blinking cursor
-										function addInputLine(textToType = '', callback) {
-											const inputLine = document.createElement('div');
-											inputLine.className = 'input-line';
-									
-											const label = document.createElement('label');
-											label.textContent = 'about@garamhan:~$ ';  // Linux-style prompt
-									
-											const span = document.createElement('span');
-											span.textContent = ''; // Start empty for typing effect
-									
-											const cursor = document.createElement('span');
-											cursor.className = 'blinking-cursor';
-									
-											inputLine.appendChild(label);
-											inputLine.appendChild(span);
-											inputLine.appendChild(cursor);
-											cli.appendChild(inputLine);
+                    function checkAndRemoveOldLines() {
+                        const lines = cli.querySelectorAll('.input-line');
+                        if (lines.length > MAX_LINES) {
+                            lines[0].remove();
+                        }
+                    }
 
-											typeText(span, textToType, callback);
-										}
-									
-										// Clear CLI
-										function clearDynamicCLI(callback) {
-											const inputLines = document.querySelectorAll('.input-line');
-											inputLines.forEach(line => line.remove());
-											if (callback) callback();
-										}
-									
-										// Initialize CLI
-										function initializeCLI() {
-											addInputLine('echo "hello world"', () => {
-												setTimeout(() => {
-													backspaceText(document.querySelector('.input-line span'), () => {
-														clearDynamicCLI(() => {
-															addInputLine('whoami', () => {
-																setTimeout(() => {
-																	const outputLine = document.createElement('div');
-																	outputLine.className = 'input-line';
-																	const span = document.createElement('span');
-																	span.textContent = 'Garam Han';
-																	outputLine.appendChild(span);
-																	cli.appendChild(outputLine);
-																}, 1000); // Wait 1 second before outputting
-															});
-														});
-													});
-												}, 2000); // Wait 2 seconds before clearing
-											});
-										}
-									
-										// Start the CLI on page load
-										window.onload = initializeCLI;
-									</script>
-								</div>
-							</section>
+                    function addInputLine(textToType = '', callback) {
+                        // Remove previous cursor
+                        if (currentCursor) {
+                            currentCursor.remove();
+                        }
 
-						<!-- Two -->
-							<section id="two">
-								<div class="container">
-									<h3>Things I Can Do</h3>
-									<p>A Cloud Engineer skilled in automating infrastructure, optimizing deployments, and developing QA strategies for reliable, scalable solutions.</p>
-									<ul class="feature-icons">
-										<li class="icon solid fa-code">Automating All The Things</li>
-										<li class="icon solid fa-file-code">Testing End-to-end Strategies</li>
-										<li class="icon solid fa-laptop-code">Architecting Cloud-native Solutions</li>
-										<li class="icon solid fa-coffee">Drinking Too Much Coffee</li>
-										<li class="icon solid fa-bug">Debugging And Resolving Issues</li>
-										<li class="icon solid fa-terminal">Monitoring And Alerting Scripts</li>
-									</ul>
-								</div>
-							</section>
+                        const inputLine = document.createElement('div');
+                        inputLine.className = 'input-line';
 
-						<!-- Three -->
-							<section id="three">
-								<div class="container">
-									<h3>A Few Accomplishments</h3>
-									<p>And Many More To Come</p>
-									<div class="features">
-										<article>
-											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/sap.png" alt="" /></a>
-											<div class="inner">
-												<h4>AWS Solutions Architect – Professional</h4>
-												<p>Reference: 9F635791AA8E4A7CAEE79CD2D229DEFF</br>
-													August 2025 - August 2028</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/pca.png" alt="" /></a>
-											<div class="inner">
-												<h4>Professional Cloud Architect</h4>
-												<p>Reference: 247CC673248D4F1297EE899012BC43DB</br>
-													January 2024 - January 2026</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/ace.png" alt="" /></a>
-											<div class="inner">
-												<h4>Associate Cloud Engineer</h4>
-												<p>Reference: A93DB2515A594172ACF348BD825F9800 </br>
-													January 2023 - January 2026</p>
-											</div>
-										</article>
-										<article>
-											<a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/co2.png" alt="" /></a>
-											<div class="inner">
-												<h4>AWS Solutions Architect – Associate</h4>
-												<p>Reference: Q1TE8S3JD2FQ1XW8</br> 
-													July 2021 - July 2024</p>
-											</div>
-										</article>
-									</div>
-								</div>
-							</section>
+                        const label = document.createElement('label');
+                        label.textContent = 'about@garamhan:~$ ';
 
-					</div>
+                        const textContainer = document.createElement('div');
+                        textContainer.className = 'text-container';
 
-					<section id="footer">
-						<div class="container">
-							<small class="copyright">Copyright &copy; <script>document.write(new Date().getFullYear())</script> | Garam Han
-							</small>
-						</div>
-					</section>
+                        const span = document.createElement('span');
+                        span.textContent = '';
 
-			</div>
+                        const cursor = document.createElement('span');
+                        cursor.className = 'blinking-cursor';
+                        cursor.textContent = ' ';
+                        currentCursor = cursor;
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+                        textContainer.appendChild(span);
+                        textContainer.appendChild(cursor);
+                        inputLine.appendChild(label);
+                        inputLine.appendChild(textContainer);
+                        cli.appendChild(inputLine);
 
-	</body>
+                        typeText(span, textToType, cursor, callback);
+                    }
+
+                    function addOutputLine(text, delay = 800) { // Increased delay
+                        return new Promise(resolve => {
+                            setTimeout(() => {
+                                const outputLine = document.createElement('div');
+                                outputLine.className = 'input-line';
+                                outputLine.innerHTML = text;
+                                cli.appendChild(outputLine);
+                                checkAndRemoveOldLines();
+                                resolve();
+                            }, delay);
+                        });
+                    }
+
+                    async function initializeCLI() {
+                        // Initial command
+                        addInputLine('whoami', () => {
+                            setTimeout(async () => {
+                                await addOutputLine('Garam Han');
+                                setTimeout(() => {
+                                    addInputLine('cat about.txt', async () => {
+                                        const lines = [
+                                            'Passionate Cloud Engineer with expertise in AWS and Google Cloud.',
+                                            'Specializing in:',
+                                            '• Cloud Infrastructure & Automation',
+                                            '• Infrastructure as Code (Terraform)',
+                                            '• Container Orchestration (Kubernetes)',
+                                            '• CI/CD Pipelines'
+                                        ];
+                                        
+                                        for (let line of lines) {
+                                            await addOutputLine(line, 800); // Slowed down line appearance
+                                        }
+                                    });
+                                }, 1500); // Increased delay
+                            }, 1000);
+                        });
+                    }
+
+                    window.onload = initializeCLI;
+                </script>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section" style="background: #f8fafc;">
+            <div class="container">
+                <h2 class="section-title">Professional Experience</h2>
+                <div class="timeline">
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline-date">2022 - Present</div>
+                        <div class="timeline-content">
+                            <div class="timeline-role" style="text-align: center;">Cloud Engineer</div>
+                            <!-- <div class="timeline-description">
+                                Leading cloud infrastructure automation and optimization initiatives for enterprise clients.
+                            </div> -->
+                            <div class="timeline-achievements">
+                                <ul>
+                                    <li>Delivering cloud support using Jira Service Desk for 4000+ GCP projects and 100+ AWS accounts</li>
+                                    <li>Automated resource provisioning using GCP APIs and Firestore, reducing manual deployment time by 90%</li>
+                                    <li>Enhanced automation reliability by implementing failure handling, triggering Slack alerts and auto-generated Jira tickets</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline-date">2019 - 2021</div>
+                        <div class="timeline-content">
+                            <div class="timeline-role" style="text-align: center;">QA Engineer</div>
+                            <!-- <div class="timeline-description">
+                                Focused on containerization and CI/CD pipeline development for scalable applications.
+                            </div> -->
+                            <div class="timeline-achievements">
+                                <ul>
+                                    <li>Resolved critical escalations by systematically replicating prod issues</li>
+                                    <li>Developed comprehensive documentation on setup guides to Windows, Linux, and MacOS agents for QA testing</li>
+                                    <li>Executed weekly production deployments, validating hotfixes and feature releases with 95% success rate</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline-date">2018 - 2019</div>
+                        <div class="timeline-content">
+                            <div class="timeline-role" style="text-align: center;">Software Test Engineer</div>
+                            <!-- <div class="timeline-description">
+                                Started career focusing on cloud infrastructure basics and automation tools.
+                            </div> -->
+                            <div class="timeline-achievements">
+                                <ul>
+                                    <li>Participated in bug reviews, functional requirements, and daily stand-up calls</li>
+                                    <li>Designed test cases to cover new features per business requirements</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline-date">2017 - 2018</div>
+                        <div class="timeline-content">
+                            <div class="timeline-role" style="text-align: center;">QA Analyst</div>
+                            <!-- <div class="timeline-description">
+                                Started career focusing on cloud infrastructure basics and automation tools.
+                            </div> -->
+                            <div class="timeline-achievements">
+                                <ul>
+                                    <li>Assumed leadership role for the QA and business analysts by contributing to the IRA project, assignments, goals, and updates</li>
+                                    <li>Coordinated with product owners, developers, and IRA support members to deliver high-quality and enterprise-class releases on scheduled timelines</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item fade-in-up">
+                        <div class="timeline-date">2015 - 2017</div>
+                        <div class="timeline-content">
+                            <div class="timeline-role" style="text-align: center;">Junior Test Engineer</div>
+                            <!-- <div class="timeline-description">
+                                Started career focusing on cloud infrastructure basics and automation tools.
+                            </div> -->
+                            <div class="timeline-achievements">
+                                <ul>
+                                    <li>Stress tested multiple Linux servers to observe maximum capacity load before failure</li>
+                                    <li>Decreased the cost of testing by automating scripts to simulate real-time data hardware</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section">
+            <div class="container">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-card fade-in-up">
+                        <div class="skill-icon">☁️</div>
+                        <h3>Cloud Platforms</h3>
+                        <p>AWS and Google Cloud Platform with focus on scalable architecture and cost optimization</p>
+                    </div>
+                    <div class="skill-card fade-in-up">
+                        <div class="skill-icon">🔧</div>
+                        <h3>Infrastructure as Code</h3>
+                        <p>Terraform, CloudFormation, and Deployment Manager for efficient deployment and configuration management</p>
+                    </div>
+                    <div class="skill-card fade-in-up">
+                        <div class="skill-icon">🐳</div>
+                        <h3>Scripting & Automation</h3>
+                        <p>Python, NodeJS, and Bash for efficient task automation</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section" style="background: #f8fafc;">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card fade-in-up">
+                        <div class="project-header">
+                            <h3>Infrastructure Deployment</h3>
+                        </div>
+                        <div class="project-content">
+                            <p>Developed a comprehensive infrastructure automation solution that deploys resources across multiple cloud providers with consistent configuration and monitoring.</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">GCP</span>
+                                <span class="tech-tag">AWS</span>
+                                <span class="tech-tag">Deployment Manager</span>
+                                <span class="tech-tag">CloudFormation</span>
+                                <span class="tech-tag">Automation</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card fade-in-up">
+                        <div class="project-header">
+                            <h3>Raspberry Pi VPN Host</h3>
+                        </div>
+                        <div class="project-content">
+                            <p>Developed a secure and user-friendly VPN server for Raspberry Pi, enabling remote access and secure data transmission.</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Raspbian</span>
+                                <span class="tech-tag">Wireguard</span>
+                                <span class="tech-tag">OpenVPN</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-card fade-in-up">
+                        <div class="project-header">
+                            <h3>Hyper-V Windows Administration</h3>
+                        </div>
+                        <div class="project-content">
+                            <p>Deployed and configured Hyper-V environment for Windows and Linux to simulate Azure-like environments.</p>
+                            <div class="tech-tags">
+                                <span class="tech-tag">Hyper-V</span>
+                                <span class="tech-tag">Virtualization</span>
+                                <span class="tech-tag">Windows Admin Center</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="accomplishments" class="section">
+            <div class="container">
+                <h2 class="section-title">Accomplishments</h2>
+                <div class="accomplishments-grid">
+                    <div class="skill-card fade-in-up">
+                        <a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/sap.png" alt="" /></a>
+                        <h3>AWS Solutions Architect – Professional</h3>
+                        <p>Reference: 9F635791AA8E4A7CAEE79CD2D229DEFF</p>
+                        <p>August 2025 - August 2028</p>
+                    </div>
+                    <div class="skill-card fade-in-up">
+                        <a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/pca.png" alt="" /></a>
+                        <h3>Professional Cloud Architect</h3>
+                        <p>Reference: 247CC673248D4F1297EE899012BC43DB</p>
+                        <p>January 2024 - January 2026</p>
+                    </div>
+                    <div class="skill-card fade-in-up">
+                        <a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/ace.png" alt="" /></a>
+                        <h3>Associate Cloud Engineer</h3>
+                        <p>Reference: A93DB2515A594172ACF348BD825F9800</p>
+                        <p>January 2023 - January 2026</p>
+                    </div>
+                    <div class="skill-card fade-in-up">
+                        <a href="https://www.credly.com/users/garam" class="image" target="_blank" rel="noopener noreferrer"><img src="images/co2.png" alt="" /></a>
+                        <h3>AWS Solutions Architect – Associate</h3>
+                        <p>Reference: Q1TE8S3JD2FQ1XW8</p>
+                        <p>July 2021 - July 2024</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="footer">
+            <div class="container">
+                <small class="copyright">Copyright &copy; <script>document.write(new Date().getFullYear())</script> | Garam Han
+				    </small>
+            </div>
+        </section>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+</body>
 </html>
