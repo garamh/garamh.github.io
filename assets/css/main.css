@@ -364,6 +364,8 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 2rem;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 .skill-card {
@@ -618,6 +620,8 @@ img {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 .accomplishments-grid .skill-card h3 {
@@ -630,6 +634,13 @@ img {
     color: #4a5568;
     margin-bottom: 0.5rem;
     font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    white-space: normal;
 }
 
 /* Make certification images slightly larger */
@@ -637,6 +648,16 @@ img {
     width: 180px;
     height: auto;
     margin-bottom: 1.5rem;
+}
+
+/* Specific fix for certification reference numbers */
+.accomplishments-grid .skill-card p:contains("Reference:"),
+.accomplishments-grid .skill-card p[title*="Reference"] {
+    font-family: monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    word-break: break-all; /* More aggressive breaking for reference numbers */
+    overflow-wrap: anywhere;
 }
 
 @media (max-width: 768px) {
@@ -799,6 +820,28 @@ img {
         padding: 10px 25px;
         font-size: 1rem;
     }
+
+    /* Accomplishments mobile */
+    .accomplishments-grid .skill-card {
+        padding: 1.5rem;
+        margin: 0 5px; /* Reduce margin to give more space */
+        min-height: unset;
+    }
+    
+    .accomplishments-grid .skill-card p {
+        font-size: 0.9rem;
+        line-height: 1.3;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        -webkit-hyphens: auto;
+    }
+    
+    .accomplishments-grid .skill-card h3 {
+        font-size: 1.2rem;
+        line-height: 1.3;
+        word-wrap: break-word;
+    }
 }
 
 /* Extra small phones */
@@ -858,6 +901,24 @@ img {
         font-size: 0.7rem;
         padding: 0.3rem 0.6rem;
     }
+
+    /* Accomplishments extra small screens */
+    .accomplishments-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 5px;
+    }
+    
+    .accomplishments-grid .skill-card {
+        padding: 1.2rem;
+        margin: 0;
+    }
+    
+    .accomplishments-grid .skill-card p {
+        font-size: 0.85rem;
+        word-break: break-all; /* Most aggressive breaking for very small screens */
+        overflow-wrap: anywhere;
+    }
 }
 
 /* Landscape phone orientation */
@@ -885,6 +946,12 @@ img {
     #cli {
         height: 180px;
     }
+
+    .accomplishments-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 10px;
+    }
 }
 
 /* Ensure text doesn't overflow on very small screens */
@@ -903,5 +970,16 @@ img {
     .timeline-content {
         width: calc(100% - 30px);
         margin-left: 25px !important;
+    }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+    .accomplishments-grid .skill-card p {
+        -webkit-word-break: break-word;
+        -webkit-hyphen: auto;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 }
